@@ -26,7 +26,7 @@ const App = () => {
 		setConnectedPeers((prev) => prev + 1);
 		connection.on('data', (data) => {
 			if (data.file) {
-			const fileName = data.file.name || 'Received File';
+			const fileName = data.file.name || 'Untitled File';
 			setReceivedFiles((prevFiles) => [...prevFiles, fileName]);
 
 			const reader = new FileReader();
@@ -87,7 +87,7 @@ const App = () => {
 
 	return (
 		<div>
-		<div className='flex flex-row justify-center md:mt-16'>
+		<div className='flex flex-row justify-center mt-8 md:mt-16'>
 			<svg className="self-center" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M15 25C15 29.1421 11.6421 32.5 7.5 32.5C3.35786 32.5 0 29.1421 0 25C0 20.8579 3.35786 17.5 7.5 17.5C11.6421 17.5 15 20.8579 15 25Z" fill="#EB5757"/>
 				<path d="M50 25C50 29.1421 46.6421 32.5 42.5 32.5C38.3579 32.5 35 29.1421 35 25C35 20.8579 38.3579 17.5 42.5 17.5C46.6421 17.5 50 20.8579 50 25Z" fill="#2F80ED"/>
@@ -95,19 +95,19 @@ const App = () => {
 				<path d="M32.5 42.5C32.5 46.6421 29.1421 50 25 50C20.8579 50 17.5 46.6421 17.5 42.5C17.5 38.3579 20.8579 35 25 35C29.1421 35 32.5 38.3579 32.5 42.5Z" fill="#6FCF97"/>
 			</svg>
 			<div className='flex flex-col self-center pl-5'>
-			<h1 className='text-3xl font-bold'>
+			<h1 className='text-xl md:text-3xl font-bold'>
 				Hive
 			</h1>
-			<h3>
+			<h3 className='text-sm md:text-xl'>
 				a decentralized p2p File Sharing App
 			</h3>
 			</div>
 		</div>
 		<div className='flex flex-col items-center p-10'>
 			{connectedPeers == 0 &&
-				<div class="mb-6 px-20">
-					<p className='text-gray-700'>Your Room ID: <span className='text-gray-950 font-bold'>{peerId}</span></p>
-					<p>Connected to {connectedPeers} peers</p>
+				<div class="mb-6 p-0 md:px-20">
+					<p className='text-gray-700'>Your Room ID: <br /><span className='text-gray-950 font-bold'>{peerId}</span></p>
+					<p className='text-gray-700 font-light mt-2'>Connected to {connectedPeers} peers</p>
 				</div>
 			}
 			{connectedPeers > 0 && 
@@ -121,7 +121,7 @@ const App = () => {
 			}
 		</div>
 
-		<div class="mb-6 px-20">
+		<div class="mb-6 px-8 md:px-20">
 			<label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PeerID: </label>
 			<div className='flex flex-row'>
 			<input 
@@ -148,9 +148,11 @@ const App = () => {
 
 		{transferComplete && <p>File transfer complete!</p>}
 
+		<hr class="my-12 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
+
 		<div className='flex flex-row justify-center'>
 			<div className='flex flex-col px-8'>
-				<h3 className='font-bold text-xl'>Sent Files</h3>
+				<h3 className='font-bold text-md md:text-xl'>Sent Files</h3>
 				<ul>
 					{sentFiles.map((file, index) => (
 					<li key={index}>{file}</li>
@@ -158,13 +160,13 @@ const App = () => {
 				</ul>
 			</div>
 			<div className='flex flex-col px-8'>
-				<h3 className='font-bold text-xl'>Received Files</h3>
+				<h3 className='font-bold text-md md:text-xl'>Received Files</h3>
 				<ul>
 					{receivedFiles.map((file, index) => (
 					<li key={index}>
 						{file}
 						<button>
-						<a href={fileURL} download={file}>
+						<a className="underline font-normal text-sm text-blue-500 pl-2" href={fileURL} download={file}>
 							Download
 						</a>
 						</button>
@@ -172,6 +174,17 @@ const App = () => {
 					))}
 				</ul>
 			</div>
+		</div>
+		
+		<hr class="my-12 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10" />
+
+		<div className='flex flex-col items-center'>
+			<p className='m-8 mb-2 text-gray-500 font-medium'>
+				UniProject - Group 24 - v1 demo
+			</p>
+			<p className='m-0 mt-2 mx-4 text-center mb-8 text-gray-800 font-light'>
+				Under development and not representative of the final product.
+			</p>
 		</div>
 		</div>
 	);
